@@ -1,5 +1,15 @@
+
+
 var app = {
 
+    initialize: function() {
+        var self = this;
+        this.store = new MemoryStore(function() {
+            self.showAlert('Store Initialized', 'Info');
+        });
+        $('.search-key').on('keyup', $.proxy(this.findByName, this));
+    }
+    
     findByName: function() {
         console.log('findByName');
         this.store.findByName($('.search-key').val(), function(employees) {
@@ -29,11 +39,3 @@ var app = {
 };
 
 app.initialize();
-
-initialize: function() {
-    var self = this;
-    this.store = new MemoryStore(function() {
-        self.showAlert('Store Initialized', 'Info');
-    });
-    $('.search-key').on('keyup', $.proxy(this.findByName, this));
-}
